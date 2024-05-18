@@ -206,6 +206,7 @@ class _Block(object):
         self.modctxt = callinfo.modctxt
         self.callername = callinfo.name
         self.symdict = None
+        self.allsigdict = {}
         self.sigdict = {}
         self.memdict = {}
         self.name = self.__name__ = name
@@ -261,6 +262,7 @@ class _Block(object):
         self.symdict.update(usedsigdict)
         self.symdict.update(usedlosdict)
         # Infer sigdict and memdict, with compatibility patches from _extractHierarchy
+
         for n, v in self.symdict.items():
             if isinstance(v, _Signal):
                 self.sigdict[n] = v

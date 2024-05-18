@@ -29,11 +29,11 @@ negedge -- callable to model a falling edge on a signal in a yield statement
 from copy import copy, deepcopy
 
 from myhdl import _simulator as sim
+from myhdl._bin import bin
+from myhdl._intbv import intbv
 from myhdl._simulator import _futureEvents
 from myhdl._simulator import _siglist
 from myhdl._simulator import _signals
-from myhdl._intbv import intbv
-from myhdl._bin import bin
 
 # from myhdl._enum import EnumItemType
 
@@ -91,6 +91,7 @@ def negedge(sig):
     """ Return a negedge trigger object """
     return sig.negedge
 
+
 # signal factory function
 
 
@@ -105,7 +106,6 @@ def Signal(val=None, delay=None):
 
 
 class _Signal(object):
-
     """ _Signal class.
 
     Properties:
@@ -120,15 +120,16 @@ class _Signal(object):
                  '_setNextVal', '_copyVal2Next', '_printVcd',
                  '_driven', '_read', '_name', '_used', '_inList',
                  '_waiter', 'toVHDL', 'toVerilog', '_slicesigs',
-                 '_numeric'
+                 '_numeric', 'encoding'
                  )
 
-    def __init__(self, val=None):
+    def __init__(self, val=None, encoding = None):
         """ Construct a signal.
 
         val -- initial value
 
         """
+        self.encoding = encoding
         self._init = deepcopy(val)
         self._val = deepcopy(val)
         self._next = deepcopy(val)
@@ -575,7 +576,6 @@ class _Signal(object):
 
 
 class _DelayedSignal(_Signal):
-
     __slots__ = ('_nextZ', '_delay', '_timeStamp',
                  )
 

@@ -36,8 +36,8 @@ def _isGenSeq(obj):
         return True
     if not isinstance(obj, (list, tuple, set)):
         return False
-# if not obj:
-# return False
+    # if not obj:
+    # return False
     for e in obj:
         if not _isGenSeq(e):
             return False
@@ -48,9 +48,10 @@ def instances():
     f = inspect.currentframe()
     d = inspect.getouterframes(f)[1][0].f_locals
     l = []
-    for v in d.values():
-        if _isGenSeq(v):
-            l.append(v)
+
+    for name, block in d.items():
+        if _isGenSeq(block):
+            l.append(block)
     return l
 
 
